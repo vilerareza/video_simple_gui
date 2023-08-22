@@ -1,0 +1,51 @@
+<ControlBar>:
+
+    manager: app.manager
+    btn_play : id_btn_play
+    seek_slider : slider1
+
+    canvas.before :
+        Color : 
+            rgb : (0,0,0)
+        Rectangle :
+            size : self.size
+            pos : self.pos
+
+    Button:
+        id: btn_open
+        text: 'Open File'
+        # background_normal: 'images/multiview/btn_download.png'
+        # background_down: 'images/multiview/btn_download_down.png'
+        # background_disabled_normal: 'images/multiview/btn_download.png'
+        size_hint: (None, None)
+        size: (dp(100), dp(30))
+        right: root.right-dp(10)
+        center_y:root.center_y
+        on_release: root.load_data()
+    
+    Slider:
+        id: slider1
+        orientation: "horizontal"
+        size_hint: (None, None)
+        size: (dp(500), dp(30))
+        right: root.right-dp(10)
+        pos_hint : {'center_x':0.5, 'center_y': 0.5}
+        min: 0
+        max: 100
+        value: root.slider_value
+        on_touch_down: root.on_slide_down(*args)
+        on_touch_up: root.on_slide_up(*args)
+
+    ButtonImage:
+        id: id_btn_play
+        source : 'images/play.png'
+        size_hint: (None, None)
+        size: (dp(40), dp(40))
+        x: root.x+dp(20)
+        center_y:root.center_y
+        on_press: root.button_press_callback(self)
+        on_release: root.button_release_callback(self)
+        disabled: root.btn_play_disabled
+        opacity: 0.5 if self.disabled==True else 1.0
+
+<ButtonImage@ButtonBehavior+Image> 
