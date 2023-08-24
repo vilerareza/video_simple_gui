@@ -29,9 +29,11 @@ class ControlBar(FloatLayout):
         self.parent.frame_box.play()
         root = Tk()
         root.withdraw()
-        root.update()
+        root.call('wm', 'attributes', '.', '-topmost', True)
+        #root.update()
         file_name = filedialog.askopenfilename(filetypes= [("Video Files","*.mp4 *.mkv *.mov *.avi")])
-        root.destroy()
+        root.update()
+        #root.destroy()
         if file_name:
             if os.path.exists(file_name):
                 self.manager.video_file = file_name
